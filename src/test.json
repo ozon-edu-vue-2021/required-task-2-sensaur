@@ -1,0 +1,22 @@
+{
+  "name": "/",
+  "children": [
+    {
+      "name": "music",
+      "children": [
+        {
+          "name": "song.mp3"
+        },
+        {
+          "name": "workspace",
+          "children": [
+            {
+              "name": "sourse.js"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
