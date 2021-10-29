@@ -26,9 +26,8 @@
 </template>
 
 <script>
-// import ColorHash from 'color-hash';
-
-// const colorHash = new ColorHash();
+const ColorHash = require('color-hash').default;
+const colorHash = new ColorHash();
 
 export default {
   name: "TreeBrowser",
@@ -47,8 +46,11 @@ export default {
   methods: {
     nodeClicked() {
       this.expanded = !this.expanded
-      if (!this.hasChildren) {
-        alert(this.node.name)
+      if (this.node.type === 'file') {
+        alert(`File: ${this.node.name}`)
+      }
+      if (this.node.type === 'link') {
+        alert(`Link: ${this.node.name}`)
       }
     },
     getStyle(node) {
@@ -56,17 +58,17 @@ export default {
       let colorLink = 'pink'
       if (node.type === 'file') {
         return {
-          color: "green",
-          // 'color': colorHash.hex(node.name.split('.')[1]),
+          'color': colorHash.hex(node.name.split('.')[1] === undefined ? true : node.name.split('.')[1]),
         }
-      } else if (node.type === 'link') {
+      }
+      else if (node.type === 'link') {
         return {
           color: colorLink
         }
       } else return {
         color: colorDir
       }
-    }
+    },
   },
   computed: {
     hasChildren() {
