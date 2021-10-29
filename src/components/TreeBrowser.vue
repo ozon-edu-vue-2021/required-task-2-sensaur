@@ -7,30 +7,28 @@
           class="type"
           v-if="hasChildren"
       >
-        {{ expanded && node.type != 'link'  ? '&#9660;' : '&#9658;' }}
+        {{ expanded && node.type != 'link' ? '&#9660;' : '&#9658;' }}
       </span>
       <span class="type" v-else>&#9671;</span>
       <span
           :style="getStyle(node)">{{ node.name }}</span>
     </div>
 
+    <span v-if="expanded">
     <TreeBrowser
-        v-if="expanded"
         v-for="child in node.contents"
         :key="child.name"
         :node="child"
-        :depth="depth + 1"
-        @onClick="(node) => $emit('onClick', node)"
-    >
+        :depth="depth + 1">
     </TreeBrowser>
+      </span>
   </div>
 </template>
 
 <script>
-import ColorHash from 'color-hash';
-console.log(ColorHash)
+// import ColorHash from 'color-hash';
 
-const colorHash = new ColorHash();
+// const colorHash = new ColorHash();
 
 export default {
   name: "TreeBrowser",
@@ -50,18 +48,18 @@ export default {
     nodeClicked() {
       this.expanded = !this.expanded
       if (!this.hasChildren) {
-        console.log('we are here')
-        this.$emit('onClick', this.node)
+        alert(this.node.name)
       }
     },
     getStyle(node) {
-      let colorDir= 'red'
+      let colorDir = 'red'
       let colorLink = 'pink'
       if (node.type === 'file') {
         return {
-          'color': colorHash.hex(node.name.split('.')[1]),
+          color: "green",
+          // 'color': colorHash.hex(node.name.split('.')[1]),
         }
-      } else if(node.type === 'link') {
+      } else if (node.type === 'link') {
         return {
           color: colorLink
         }
